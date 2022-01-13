@@ -43,8 +43,10 @@ namespace BethanysPieShopHRM.Server
                 client.BaseAddress = new Uri("https://localhost:44340/");
             });
 
+            services.AddAuthentication("Identity.Application")
+                .AddCookie();
 
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
+            services.AddScoped<TokenProvider>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,10 +69,12 @@ namespace BethanysPieShopHRM.Server
             app.UseRouting();
 
             app.UseAuthentication();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllers();
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });

@@ -12,10 +12,12 @@ namespace BethanysPieShopHRM.App.Services
     public class EmployeeDataService: IEmployeeDataService
     {
         private readonly HttpClient _httpClient;
+        private readonly TokenProvider _tokenProvider;
 
-        public EmployeeDataService(HttpClient httpClient)
+        public EmployeeDataService(HttpClient httpClient, TokenProvider tokenProvider)
         {
             _httpClient = httpClient;
+            _tokenProvider = tokenProvider;
         }
 
         public async Task<IEnumerable<Employee>> GetAllEmployees()
